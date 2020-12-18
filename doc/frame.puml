@@ -1,0 +1,17 @@
+@startuml
+
+[*] --> initState
+initState: set deadline
+initState: counter 0
+
+initState --> workState
+workState --> waitState: limit\n!deadline
+workState --> initState: deadline
+workState: counter++
+workState --> [*]:done
+
+waitState: while !deadline || abort
+waitState --> [*]: abort
+waitState --> initState: deadline
+
+@enduml

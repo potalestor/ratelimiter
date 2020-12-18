@@ -1,0 +1,41 @@
+@startuml
+namespace operator {
+    class Frame << (S,Aquamarine) >> {
+        - ctx context.Context
+        - lifetime time.Duration
+        - max int
+        - counter int
+        - deadline time.Time
+        - current state
+        - actions []actionFunc
+
+        - isDeadline() bool
+        - isMax() bool
+        - initAction() (state, error)
+        - workAction() (state, error)
+        - waitAction() (state, error)
+        - abortAction() (state, error)
+        - doneAction() (state, error)
+
+        + Take() error
+
+    }
+    interface Operator  {
+        + io.Closer
+        + Take() error
+        + Give() 
+
+    }
+    class Semaphore << (S,Aquamarine) >> {
+        - bufchan <font color=blue>chan</font> <font color=blue>struct</font>{}
+
+        + Give() 
+        + Take() error
+        + Close() error
+
+    }
+}
+"operator.Semaphore" *-- "operator.Frame"
+"operator.Operator" <|-- "operator.Semaphore"
+
+@enduml

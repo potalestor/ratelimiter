@@ -1,0 +1,10 @@
+run:
+linters-settings:
+  depguard:
+    tests: true
+    list-type: whitelist
+    packages:
+      - guthub.com/potalestor/ratelimiter
+
+linters:
+  enable-all: true
