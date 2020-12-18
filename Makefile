@@ -8,6 +8,8 @@ APPNAME = ratelimiter
 APPPATH = ./cmd/$(APPNAME)
 APPMAIN = $(APPPATH)/main.go
 
+# Others
+LINTER=golangci-lint
 
 all: run
 
@@ -22,11 +24,13 @@ run: build
 	@echo "Run $(APPNAME)"
 	$(APPPATH)/$(APPNAME) -n=$(n) -x=$(x)
 
-linter: 
-	golangci-lint run
+lint:
+	@echo "Run linter  $(LINTER)"
+	$(LINTER) run
 
-test: 
-	go test -v ./... -short	
+test:
+	@echo "Run tests $(APPNAME)"
+	$(GOTEST) ./... -v
 
 godoc:    
 	godoc -http=:6060  -goroot=$(GOPATH)
